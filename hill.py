@@ -12,6 +12,10 @@ for i in range(0, 5): # TODO make this choose the queen with the highest number 
         temp1.map[0][i] = 0
         j_index = i
         break
+
+pair = current.expensiveQueen()
+#print(pair)
+
 arr = []
 
 i_up = False
@@ -53,46 +57,46 @@ for i in range(0, 8):
         temp.map[i_index - 1][j_index - 1] = 1
         arr.append(temp)
         ij_upLeft = False
-        print("upLeft" + " " + str(i))
+        #print("upLeft" + " " + str(i))
 
     elif ij_upRight and temp.map[i_index - 1][j_index + 1] != 1:
         temp.map[i_index - 1][j_index + 1] = 1
         arr.append(temp)
         ij_upRight = False
-        print("upRight"  + " " + str(i))
+        #print("upRight"  + " " + str(i))
 
     elif ij_downLeft and temp.map[i_index + 1][j_index - 1] != 1:
         temp.map[i_index + 1][j_index - 1] = 1
         arr.append(temp)
         ij_downLeft = False
-        print("downLeft"  + " " + str(i))
+        #print("downLeft"  + " " + str(i))
 
     elif ij_downRight and temp.map[i_index + 1][j_index + 1] != 1:
         temp.map[i_index + 1][j_index + 1] = 1
         arr.append(temp)
         ij_downRight = False
-        print("downRight" + " " + str(i))
+        #print("downRight" + " " + str(i))
 
     elif i_up and temp.map[i_index-1][j_index] != 1:
         temp.map[i_index-1][j_index] = 1
         arr.append(temp)
         i_up = False
-        print("up" + " " + str(i))
+        #print("up" + " " + str(i))
     elif i_down and temp.map[i_index + 1][j_index] != 1:
         temp.map[i_index + 1][j_index] = 1
         arr.append(temp)
         i_down = False
-        print("down" + " " + str(i))
+        #print("down" + " " + str(i))
     elif j_left and temp.map[i_index][j_index - 1] != 1:
         temp.map[i_index][j_index - 1] = 1
         arr.append(temp)
         j_left = False
-        print("left" + " " + str(i))
+        #print("left" + " " + str(i))
     elif j_right and temp.map[i_index][j_index + 1] != 1:
         temp.map[i_index][j_index + 1] = 1
         arr.append(temp)
         j_right = False
-        print("right" + " " + str(i))
+        #print("right" + " " + str(i))
 print("length of arr = " + str(len(arr)))
 bestFit = current
 for i in range(0, len(arr)):
@@ -100,7 +104,7 @@ for i in range(0, len(arr)):
     arr[i].fitness()
     if arr[i].fit < bestFit.fit:
         bestFit = arr[i]
-    arr[i].show()
-print("original")
-current.show()
+    #arr[i].show()
+#print("original")
+#current.show()
 
