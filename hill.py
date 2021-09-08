@@ -7,7 +7,7 @@ current.show()
 i_index = 0
 j_index = 0
 temp1 = copy.deepcopy(current)
-for i in range(0, 5):
+for i in range(0, 5): # TODO make this choose the queen with the highest number of interactions
     if current.map[0][i] == 1:
         temp1.map[0][i] = 0
         j_index = i
@@ -94,9 +94,12 @@ for i in range(0, 8):
         j_right = False
         print("right" + " " + str(i))
 print("length of arr = " + str(len(arr)))
+bestFit = current
 for i in range(0, len(arr)):
     arr[i].fit = 0
     arr[i].fitness()
+    if arr[i].fit < bestFit.fit:
+        bestFit = arr[i]
     arr[i].show()
 print("original")
 current.show()

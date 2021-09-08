@@ -13,7 +13,7 @@ class Board:
             self.map[i][j] = 1
 
     # determines fitness rating for the current board state
-    def fitness(self):
+    def fitness(self): # TODO modify this code to find most expensive queen
         for i in range(self.n_queen):
             for j in range(self.n_queen):
                 if self.map[i][j] == 1:
