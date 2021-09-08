@@ -5,7 +5,7 @@ current = board.Board(5)
 current.fitness()
 current.show()
 
-while current.fit != 0:
+for i in range(0, 10):
     temp1 = copy.deepcopy(current)
 
     pair = current.expensiveQueen()
@@ -13,7 +13,7 @@ while current.fit != 0:
     j_index = pair[1]
     temp1.map[i_index][j_index] = 0
 
-    #print(pair)
+    print(pair)
 
     arr = []
 
@@ -56,46 +56,46 @@ while current.fit != 0:
             temp.map[i_index - 1][j_index - 1] = 1
             arr.append(temp)
             ij_upLeft = False
-            # print("upLeft" + " " + str(i))
+            print("upLeft" + " " + str(i))
 
         elif ij_upRight and temp.map[i_index - 1][j_index + 1] != 1:
             temp.map[i_index - 1][j_index + 1] = 1
             arr.append(temp)
             ij_upRight = False
-            # print("upRight"  + " " + str(i))
+            print("upRight"  + " " + str(i))
 
         elif ij_downLeft and temp.map[i_index + 1][j_index - 1] != 1:
             temp.map[i_index + 1][j_index - 1] = 1
             arr.append(temp)
             ij_downLeft = False
-            # print("downLeft"  + " " + str(i))
+            print("downLeft"  + " " + str(i))
 
         elif ij_downRight and temp.map[i_index + 1][j_index + 1] != 1:
             temp.map[i_index + 1][j_index + 1] = 1
             arr.append(temp)
             ij_downRight = False
-            # print("downRight" + " " + str(i))
+            print("downRight" + " " + str(i))
 
         elif i_up and temp.map[i_index - 1][j_index] != 1:
             temp.map[i_index - 1][j_index] = 1
             arr.append(temp)
             i_up = False
-            # print("up" + " " + str(i))
+            print("up" + " " + str(i))
         elif i_down and temp.map[i_index + 1][j_index] != 1:
             temp.map[i_index + 1][j_index] = 1
             arr.append(temp)
             i_down = False
-            # print("down" + " " + str(i))
+            print("down" + " " + str(i))
         elif j_left and temp.map[i_index][j_index - 1] != 1:
             temp.map[i_index][j_index - 1] = 1
             arr.append(temp)
             j_left = False
-            # print("left" + " " + str(i))
+            print("left" + " " + str(i))
         elif j_right and temp.map[i_index][j_index + 1] != 1:
             temp.map[i_index][j_index + 1] = 1
             arr.append(temp)
             j_right = False
-            # print("right" + " " + str(i))
+            print("right" + " " + str(i))
     #print(len(arr))
     bestFit = copy.deepcopy(current)
     for i in range(0, len(arr)):
@@ -103,7 +103,9 @@ while current.fit != 0:
         arr[i].fitness()
         if arr[i].fit <= bestFit.fit:
             bestFit = copy.deepcopy(arr[i])
+    print("in loop show")
     current = copy.deepcopy(bestFit)
     current.show()
     #print(current.fit)
+current.fitness()
 current.show()
