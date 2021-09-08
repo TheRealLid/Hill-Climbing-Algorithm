@@ -26,6 +26,8 @@ class Board:
                             self.fit += 1
 
     def expensiveQueen(self): # TODO modify this code to find most expensive queen
+        listOfPairs = []
+        expenseOfPairs = []
         pair = (0, 0)
         mostExpensive = 0
         for i in range(self.n_queen):
@@ -39,9 +41,12 @@ class Board:
                             temp += 1
                         if j + k < self.n_queen and self.map[i + k][j + k] == 1:
                             temp += 1
-                        if mostExpensive < temp:
+                        if mostExpensive <= temp:
                             mostExpensive = temp
+                            expenseOfPairs.append(mostExpensive)
+                            listOfPairs.append(pair)
                             pair = (i, j)
+
         return pair
 
     # shows the matrix and fitness rating, requires fitness rating to be updated before hand
