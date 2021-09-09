@@ -7,7 +7,7 @@ current.show()
 original = copy.deepcopy(current)
 loop = 0
 restart = 0
-while loop != 3:
+while loop != 15:
     if loop >= 100:
         current = copy.deepcopy(original)
         current.fitness()
@@ -20,9 +20,9 @@ while loop != 3:
     pair = temp1.expensiveQueen()
     i_index = pair[0]
     j_index = pair[1]
+    print(pair)
+    temp1.show()
     temp1.map[i_index][j_index] = 0
-
-    # print(pair)
 
     arr = []
 
@@ -118,11 +118,11 @@ while loop != 3:
         arr[i].fitness()
         if arr[i].get_fit() <= bestFit.get_fit():
             bestFit = copy.deepcopy(arr[i])
-        arr[i].show()
+        # arr[i].show()
 
-    #print("in loop show")
+    # print("in loop show")
     current = copy.deepcopy(bestFit)
-    #current.show()
+    # current.show()
     # print(current.fit)
 print("restarts = " + str(restart))
 current.fitness()

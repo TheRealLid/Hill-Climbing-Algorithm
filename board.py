@@ -30,9 +30,9 @@ class Board:
         pair = (0, 0)
         mostExpensive = 0
         for i in range(self.n_queen):
-            temp = 0
             for j in range(self.n_queen):
                 if self.map[i][j] == 1:
+                    temp = 0
                     for k in range(1, self.n_queen - i):
                         if self.map[i + k][j] == 1:
                             temp += 1
@@ -40,15 +40,21 @@ class Board:
                             temp += 1
                         if j + k < self.n_queen and self.map[i + k][j + k] == 1:
                             temp += 1
-                        if random.randrange(0, 11) >= 8:
-                            if mostExpensive < temp:
-                                mostExpensive = temp
-                                pair = (i, j)
-                            elif mostExpensive == temp:
-                                if random.randrange(0, 2) == 1:
-                                    pair = (i, j)
-                        else:
+                    print("temp: = " + str(temp))
+                    print("pair: " + str(i) + "," + str(j))
+                    if random.randrange(0, 11) >= 0:
+                        if mostExpensive < temp:
+                            mostExpensive = temp
+                            print("(normal)most expensive: " + str(mostExpensive))
                             pair = (i, j)
+                        #elif mostExpensive == temp:
+                            #if random.randrange(0, 2) == 1:
+                                #pair = (i, j)
+                                #print("(equal swap)most expensive: " + str(mostExpensive))
+                   # else:
+                        #pair = (i, j)
+                       # print("(random)most expensive: " + str(mostExpensive))
+
 
         return pair
 
