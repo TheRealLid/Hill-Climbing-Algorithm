@@ -14,6 +14,7 @@ class Board:
 
     # determines fitness rating for the current board state
     def fitness(self):
+        self.fit = 0
         for i in range(self.n_queen):
             for j in range(self.n_queen):
                 if self.map[i][j] == 1:
@@ -25,8 +26,7 @@ class Board:
                         if j + k < self.n_queen and self.map[i + k][j + k] == 1:
                             self.fit += 1
 
-    def expensiveQueen(self): # TODO modify this code to find most expensive queen
-        self.fit = 0
+    def expensiveQueen(self):
         pair = (0, 0)
         mostExpensive = 0
         for i in range(self.n_queen):
@@ -40,12 +40,15 @@ class Board:
                             temp += 1
                         if j + k < self.n_queen and self.map[i + k][j + k] == 1:
                             temp += 1
-                        if mostExpensive < temp:
-                            mostExpensive = temp
-                            pair = (i, j)
-                        elif mostExpensive == temp:
-                            if random.randrange(0, 2) == 1:
+                        if random.randrange(0, 11) >= 8:
+                            if mostExpensive < temp:
+                                mostExpensive = temp
                                 pair = (i, j)
+                            elif mostExpensive == temp:
+                                if random.randrange(0, 2) == 1:
+                                    pair = (i, j)
+                        else:
+                            pair = (i, j)
 
         return pair
 
@@ -71,6 +74,7 @@ class Board:
 
 
 if __name__ == '__main__':
-    test = Board(5)
-    test.fitness()
-    test.show()
+    print("running board")
+    #test = Board(5)
+    #test.fitness()
+    #test.show()
