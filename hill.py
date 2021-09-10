@@ -1,15 +1,30 @@
 import copy
 import board
+import timeit
 
+start = timeit.default_timer()
 current = board.Board(5)
 current.fitness()
 current.show()
 original = copy.deepcopy(current)
 loop = 0
 restart = 0
-while loop != 1:
-    if loop >= 100:
-        current = copy.deepcopy(original)
+mostExpensive = 0
+# can move this block outside of while loop
+pair = (0, 0)
+for i in range(0, current.n_queen):
+    for j in range(0, current.n_queen):
+        if current.map[i][j] == 1:
+            p = (i, j)
+            cost = current.expensiveQueen(p)
+            if cost >= mostExpensive:
+                mostExpensive = cost
+                pair = (i, j)
+# i think i can remove current.get_fit() and use mostExpensive != 0
+while mostExpensive != 0:
+    if loop >= 10:
+        current = board.Board(5)
+        # current = copy.deepcopy(original)
         current.fitness()
         loop = 0
         restart += 1
@@ -17,20 +32,12 @@ while loop != 1:
 
     temp1 = copy.deepcopy(current)
     queenCords = []
+    mostExpensive = 0
 
-    for i in range(0, current.n_queen):
-        for j in range(0, current.n_queen):
-            if current.map[i][j] == 1:
-                p = (i, j)
-                queenCords.append(p)
-
-    print(p)
-    print(current.expensiveQueen(p))
-    pair = (0, 0)
     i_index = pair[0]
     j_index = pair[1]
-    print(pair)
-    temp1.show()
+
+    # temp1.show()
     temp1.map[i_index][j_index] = 0
 
     arr = []
@@ -122,8 +129,10 @@ while loop != 1:
             j_right = False
             # print("right" + " " + str(i))
     bestFit = copy.deepcopy(current)
+    bestFit.fit = 0
     bestFit.fitness()
     for i in range(0, len(arr)):
+        arr[i].fit = 0
         arr[i].fitness()
         if arr[i].get_fit() <= bestFit.get_fit():
             bestFit = copy.deepcopy(arr[i])
@@ -131,8 +140,22 @@ while loop != 1:
 
     # print("in loop show")
     current = copy.deepcopy(bestFit)
+    for i in range(0, current.n_queen):
+        for j in range(0, current.n_queen):
+            if current.map[i][j] == 1:
+                p = (i, j)
+                cost = current.expensiveQueen(p)
+                if cost >= mostExpensive:
+                    mostExpensive = cost
+                    pair = (i, j)
+    # print(mostExpensive)
+    # print(p)
     # current.show()
     # print(current.fit)
+print("Loops " + str(loop))
 print("restarts = " + str(restart))
+current.fit = 0
 current.fitness()
 current.show()
+stop = timeit.default_timer()
+print('Time: ', stop - start)

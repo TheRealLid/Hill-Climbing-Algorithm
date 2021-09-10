@@ -14,7 +14,6 @@ class Board:
 
     # determines fitness rating for the current board state
     def fitness(self):
-        self.fit = 0
         for i in range(self.n_queen):
             for j in range(self.n_queen):
                 if self.map[i][j] == 1:
