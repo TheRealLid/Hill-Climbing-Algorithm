@@ -153,9 +153,22 @@ while mostExpensive != 0:
     # current.show()
     # print(current.fit)
 print("Loops " + str(loop))
-print("restarts = " + str(restart))
+
 current.fit = 0
 current.fitness()
 current.show()
 stop = timeit.default_timer()
-print('Time: ', stop - start)
+print("Running time ", str((stop - start)*1000) + "ms")
+print("restarts = " + str(restart))
+for i in range(0, current.n_queen):
+    for j in range(0, current.n_queen):
+        if current.map[i][j] == 1:
+            if j != 4:
+                print("1",end = " ")
+            else:
+                print("1 ")
+        else:
+            if j != 4:
+                print("-", end=" ")
+            else:
+                print("- ")
