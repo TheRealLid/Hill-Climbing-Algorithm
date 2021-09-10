@@ -7,7 +7,7 @@ current.show()
 original = copy.deepcopy(current)
 loop = 0
 restart = 0
-while loop != 15:
+while loop != 1:
     if loop >= 100:
         current = copy.deepcopy(original)
         current.fitness()
@@ -16,8 +16,17 @@ while loop != 15:
     loop += 1
 
     temp1 = copy.deepcopy(current)
+    queenCords = []
 
-    pair = temp1.expensiveQueen()
+    for i in range(0, current.n_queen):
+        for j in range(0, current.n_queen):
+            if current.map[i][j] == 1:
+                p = (i, j)
+                queenCords.append(p)
+
+    print(p)
+    print(current.expensiveQueen(p))
+    pair = (0, 0)
     i_index = pair[0]
     j_index = pair[1]
     print(pair)
