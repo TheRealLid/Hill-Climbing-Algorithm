@@ -5,7 +5,6 @@ import timeit
 start = timeit.default_timer()
 current = board.Board(5)
 current.fitness()
-current.show()
 original = copy.deepcopy(current)
 loop = 0
 restart = 0
@@ -20,12 +19,21 @@ for i in range(0, current.n_queen):
             if cost >= mostExpensive:
                 mostExpensive = cost
                 pair = (i, j)
-# i think i can remove current.get_fit() and use mostExpensive != 0
+
+
 while mostExpensive != 0:
-    if loop >= 10:
+    if loop >= current.n_queen*2:
         current = board.Board(5)
-        # current = copy.deepcopy(original)
         current.fitness()
+
+        for i in range(0, current.n_queen):
+            for j in range(0, current.n_queen):
+                if current.map[i][j] == 1:
+                    p = (i, j)
+                    cost = current.expensiveQueen(p)
+                    if cost >= mostExpensive:
+                        mostExpensive = cost
+                        pair = (i, j)
         loop = 0
         restart += 1
     loop += 1
@@ -37,7 +45,6 @@ while mostExpensive != 0:
     i_index = pair[0]
     j_index = pair[1]
 
-    # temp1.show()
     temp1.map[i_index][j_index] = 0
 
     arr = []
@@ -81,53 +88,49 @@ while mostExpensive != 0:
             temp.map[i_index - 1][j_index - 1] = 1
             arr.append(temp)
             ij_upLeft = False
-            # print("upLeft" + " " + str(i))
 
         elif ij_upRight and temp1.map[i_index - 1][j_index + 1] != 1:
             temp = copy.deepcopy(temp1)
             temp.map[i_index - 1][j_index + 1] = 1
             arr.append(temp)
             ij_upRight = False
-            # print("upRight"  + " " + str(i))
 
         elif ij_downLeft and temp1.map[i_index + 1][j_index - 1] != 1:
             temp = copy.deepcopy(temp1)
             temp.map[i_index + 1][j_index - 1] = 1
             arr.append(temp)
             ij_downLeft = False
-            # print("downLeft"  + " " + str(i))
 
         elif ij_downRight and temp1.map[i_index + 1][j_index + 1] != 1:
             temp = copy.deepcopy(temp1)
             temp.map[i_index + 1][j_index + 1] = 1
             arr.append(temp)
             ij_downRight = False
-            # print("downRight" + " " + str(i))
 
         elif i_up and temp1.map[i_index - 1][j_index] != 1:
             temp = copy.deepcopy(temp1)
             temp.map[i_index - 1][j_index] = 1
             arr.append(temp)
             i_up = False
-            # print("up" + " " + str(i))
+
         elif i_down and temp1.map[i_index + 1][j_index] != 1:
             temp = copy.deepcopy(temp1)
             temp.map[i_index + 1][j_index] = 1
             arr.append(temp)
             i_down = False
-        # print("down" + " " + str(i))
+
         elif j_left and temp1.map[i_index][j_index - 1] != 1:
             temp = copy.deepcopy(temp1)
             temp.map[i_index][j_index - 1] = 1
             arr.append(temp)
             j_left = False
-            # print("left" + " " + str(i))
+
         elif j_right and temp1.map[i_index][j_index + 1] != 1:
             temp = copy.deepcopy(temp1)
             temp.map[i_index][j_index + 1] = 1
             arr.append(temp)
             j_right = False
-            # print("right" + " " + str(i))
+
     bestFit = copy.deepcopy(current)
     bestFit.fit = 0
     bestFit.fitness()
@@ -136,10 +139,9 @@ while mostExpensive != 0:
         arr[i].fitness()
         if arr[i].get_fit() <= bestFit.get_fit():
             bestFit = copy.deepcopy(arr[i])
-        # arr[i].show()
 
-    # print("in loop show")
     current = copy.deepcopy(bestFit)
+    mostExpensive = 0
     for i in range(0, current.n_queen):
         for j in range(0, current.n_queen):
             if current.map[i][j] == 1:
@@ -148,27 +150,19 @@ while mostExpensive != 0:
                 if cost >= mostExpensive:
                     mostExpensive = cost
                     pair = (i, j)
-    # print(mostExpensive)
-    # print(p)
-    # current.show()
-    # print(current.fit)
-print("Loops " + str(loop))
 
-current.fit = 0
-current.fitness()
-current.show()
 stop = timeit.default_timer()
-print("Running time ", str((stop - start)*1000) + "ms")
-print("restarts = " + str(restart))
+print("Running time: ", str(int((stop - start) * 1000)) + "ms")
+print("# of restarts: " + str(restart))
 for i in range(0, current.n_queen):
     for j in range(0, current.n_queen):
         if current.map[i][j] == 1:
-            if j != 4:
-                print("1",end = " ")
+            if j != current.n_queen-1:
+                print("1", end=" ")
             else:
                 print("1 ")
         else:
-            if j != 4:
+            if j != current.n_queen-1:
                 print("-", end=" ")
             else:
                 print("- ")
