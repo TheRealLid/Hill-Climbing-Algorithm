@@ -9,7 +9,8 @@ original = copy.deepcopy(current)
 loop = 0
 restart = 0
 mostExpensive = 0
-# can move this block outside of while loop
+
+
 pair = (0, 0)
 for i in range(0, current.n_queen):
     for j in range(0, current.n_queen):
@@ -20,7 +21,7 @@ for i in range(0, current.n_queen):
                 mostExpensive = cost
                 pair = (i, j)
 
-
+# if the most expensive queen is 0, we found the solution
 while mostExpensive != 0:
     if loop >= current.n_queen*2:
         current = board.Board(5)
@@ -48,7 +49,7 @@ while mostExpensive != 0:
     temp1.map[i_index][j_index] = 0
 
     arr = []
-
+    # will be changed to True if a 1 can be placed at the i and j index
     i_up = False
     i_down = False
     j_left = False
@@ -81,7 +82,7 @@ while mostExpensive != 0:
 
     if i_down and j_left:
         ij_downLeft = True
-
+    # places the 1 in its new spot and adds the updated matrix to an array
     for i in range(0, 8):
         if ij_upLeft and temp1.map[i_index - 1][j_index - 1] != 1:
             temp = copy.deepcopy(temp1)
@@ -140,6 +141,7 @@ while mostExpensive != 0:
         if arr[i].get_fit() <= bestFit.get_fit():
             bestFit = copy.deepcopy(arr[i])
 
+    # finds the most expensive so the program knows to end if the most expensive is 0 aswell as to be used in next loop
     current = copy.deepcopy(bestFit)
     mostExpensive = 0
     for i in range(0, current.n_queen):
@@ -166,3 +168,4 @@ for i in range(0, current.n_queen):
                 print("-", end=" ")
             else:
                 print("- ")
+
